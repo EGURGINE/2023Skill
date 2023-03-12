@@ -144,7 +144,7 @@ public class Player : MonoBehaviour
     }
     private Vector3 PosLimit()
     {
-        Vector3 setPos = new Vector3( Mathf.Clamp(transform.position.x, -10f, 10f), Mathf.Clamp(transform.position.y, -10f, 10f), 0);
+        Vector3 setPos = new Vector3( Mathf.Clamp(transform.position.x, -5f, 5f), Mathf.Clamp(transform.position.y, -3f, 8f), 0);
 
         return setPos;
     }
