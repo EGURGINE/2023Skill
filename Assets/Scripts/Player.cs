@@ -102,9 +102,6 @@ public class Player : MonoBehaviour
         isDodge = true;
         float dodgeImageT = 0;
 
-        Vector3 thisRot = Image.transform.eulerAngles;
-        Vector3 rot = Image.transform.eulerAngles + new Vector3(0,360,0);
-
         while (true)
         {
             yield return null;
@@ -120,7 +117,7 @@ public class Player : MonoBehaviour
             if (dodgeImageT >= 0.5f) break;
         }
 
-        Image.transform.rotation = Quaternion.Euler(thisRot);
+        Image.transform.localRotation = Quaternion.Euler(Vector3.zero);
 
         isDodge = false;
 
@@ -140,7 +137,7 @@ public class Player : MonoBehaviour
 
         z = Mathf.Atan2(moveVec.y, moveVec.x) * Mathf.Rad2Deg;
         Quaternion lookRot = Quaternion.Euler(0, 0, z - 90);
-        rotObj.transform.rotation = Quaternion.Lerp(rotObj.transform.rotation, lookRot, Time.deltaTime * spd);
+        rotObj.transform.rotation = Quaternion.Lerp(rotObj.transform.rotation, lookRot, Time.deltaTime * spd * 2);
     }
     private Vector3 PosLimit()
     {
