@@ -2,14 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-public class GameManager : MonoBehaviour
+public class GameManager : Singleton<GameManager>
 {
     private bool isGameStart;
 
 
     [SerializeField] private Image[] fuelImages;
-    private float fuel = 30;
-    private float maxFuel = 30;
+    private float fuel = 100;
+    private float maxFuel = 100;
     public float Fuel
     {
         get
@@ -54,6 +54,25 @@ public class GameManager : MonoBehaviour
 
         }
     }
+
+    [SerializeField] private Text[] scoreTexts;
+    private int score;
+    public int Score
+    {
+        get
+        {
+            return score;
+        }
+        set
+        {
+            score = value;
+
+            scoreTexts[0].text = score.ToString();
+            scoreTexts[1].text = score.ToString();
+        }
+    }
+
+
     private void Start()
     {
         StartSET();
@@ -69,6 +88,7 @@ public class GameManager : MonoBehaviour
         hp = maxHP;
         fuel = maxFuel;
         isGameStart = true;
+        Score = 0;
     }
     private void Die()
     {

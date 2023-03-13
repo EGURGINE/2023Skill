@@ -9,6 +9,11 @@ public class Bullet : MonoBehaviour
 
     private Vector3 moveVec = Vector3.up;
 
+    private void Start()
+    {
+        Destroy(gameObject,10);
+    }
+
     private void Update()
     {
         transform.Translate(moveVec * spd * Time.deltaTime);
@@ -28,6 +33,7 @@ public class Bullet : MonoBehaviour
         if (other.CompareTag("Enemy"))
         {
             other.GetComponent<Enemy>().OnDamage(dmg);
+            Destroy(gameObject);
         }
     }
    

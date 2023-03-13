@@ -4,7 +4,7 @@ using UnityEngine;
 using System.Linq;
 using Unity.VisualScripting;
 
-public class Player : MonoBehaviour
+public class Player : Singleton<Player>
 {
     [SerializeField] private GameObject Image;
     [SerializeField] private GameObject rotObj;
@@ -20,6 +20,13 @@ public class Player : MonoBehaviour
     public bool isDodge;
     [SerializeField] private float dodgeCool;
     private float dodgeT;
+
+    [SerializeField] private float boomCool;
+    private float boomT;
+
+    [SerializeField] private float durabilityCool;
+    private float durabilityT;
+
     public List<GameObject> Enemys = new List<GameObject>();
     private GameObject target;
 
@@ -27,12 +34,16 @@ public class Player : MonoBehaviour
     [SerializeField] private Bullet bullet;
     private Vector3 moveVec;
 
+    [SerializeField] private ParticleSystem boomPc;
+
     void Update()
     {
         PlayerMove();
         FindEnemy();
         Attack();
         Dodge();
+        Boom();
+        DurabilityRepair();
     }
 
     private void Attack()
@@ -82,10 +93,35 @@ public class Player : MonoBehaviour
             Vector3 nor = (target.transform.position - transform.position);
             z = Mathf.Atan2(nor.y, nor.x) * Mathf.Rad2Deg;
             rotObj.transform.rotation = Quaternion.Euler(0, 0, z - 90f);
-
         }
-           
     }
+
+    private void Boom()
+    {
+        boomT += Time.deltaTime;
+        if (Input.GetKeyDown(KeyCode.C) && boomT >= boomCool)
+        {
+            boomT = 0;
+
+            ParticleSystem boom = Instantiate(boomPc);
+            boom.transform.position = transform.position;
+            Destroy(boom.gameObject, 1);
+            EnemyObserver.Instance.NotifyObservers();
+        }
+    }
+
+    private void DurabilityRepair()
+    {
+        durabilityT += Time.deltaTime;
+        if (Input.GetKeyDown(KeyCode.X) && durabilityT >= durabilityCool)
+        {
+            durabilityT = 0;
+
+            GameManager.Instance.HP++;
+        }
+    }
+
+
 
     private void Dodge()
     {
