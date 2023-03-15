@@ -6,7 +6,6 @@ public class GameManager : Singleton<GameManager>
 {
     private bool isGameStart;
 
-
     [SerializeField] private Image[] fuelImages;
     private float fuel = 100;
     private float maxFuel = 100;
@@ -38,10 +37,11 @@ public class GameManager : Singleton<GameManager>
         set
         {
             hp = value;
-
-            if (hp <= 0) Die();
-
-
+            if (hp >= maxHP) hp = maxHP;
+            if (hp <= 0) {
+                hp = 0;
+                Die();
+            }
             foreach (var item in hpImages)
             {
                 item.gameObject.SetActive(false);

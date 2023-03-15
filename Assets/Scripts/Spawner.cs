@@ -16,10 +16,10 @@ public class Spawner : MonoBehaviour
 
     private IEnumerator Stage1Spawn()
     {
-        StartCoroutine(EnemySpawn(enemys[0], spawnPos[7].position, 3));
-        StartCoroutine(EnemySpawn(enemys[0], spawnPos[3].position, 2));
-        StartCoroutine(EnemySpawn(enemys[0], spawnPos[4].position, 2));
-        yield return EnemySpawn(enemys[0], spawnPos[0].position, 3);
+        StartCoroutine(EnemySpawn(enemys[0], spawnPos[3].position, 1));
+        StartCoroutine(EnemySpawn(enemys[0], spawnPos[5].position, 1));
+        StartCoroutine(EnemySpawn(enemys[0], spawnPos[7].position, 1));
+        yield return EnemySpawn(enemys[0], spawnPos[0].position, 2);
     }
 
 

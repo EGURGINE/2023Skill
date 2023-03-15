@@ -49,7 +49,7 @@ public class Enemy : MonoBehaviour, IObserver
     {
         target.Enemys.Remove(gameObject);
         GameManager.Instance.Score += score;
-
+        EnemyObserver.Instance.RemoveObserver(this);
 
 
         ParticleSystem pc = Instantiate(diePc);
@@ -68,10 +68,11 @@ public class Enemy : MonoBehaviour, IObserver
     {
         if (collision.CompareTag("Player"))
         {
-            if (Player.Instance.isDodge == true) return;
-
-            Die();
+            if (target.isDodge == true || target.isHit == true) return;
+            target.Enemys.Remove(gameObject);
             GameManager.Instance.HP--;
+            StartCoroutine(target.PlayerHitEffect());
+            Die();
         }
     }
 

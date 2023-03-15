@@ -3,10 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
 using Unity.VisualScripting;
+using Microsoft.Unity.VisualStudio.Editor;
 
 public class Player : Singleton<Player>
 {
-    [SerializeField] private GameObject Image;
+    [SerializeField] private GameObject playerImage;
+    private SpriteRenderer sr;
     [SerializeField] private GameObject rotObj;
 
     [SerializeField] private float spd;
@@ -17,6 +19,8 @@ public class Player : Singleton<Player>
     private float shotT;
     private float z;
 
+
+    public bool isHit;
     public bool isDodge;
     [SerializeField] private float dodgeCool;
     private float dodgeT;
@@ -35,6 +39,14 @@ public class Player : Singleton<Player>
     private Vector3 moveVec;
 
     [SerializeField] private ParticleSystem boomPc;
+
+    private Color basicColor = new Color(255, 255, 255, 255);
+    private Color hitColor = new Color(255, 255, 255, 10);
+
+    private void Start()
+    {
+        sr = playerImage.GetComponent<SpriteRenderer>();
+    }
 
     void Update()
     {
@@ -115,13 +127,28 @@ public class Player : Singleton<Player>
         durabilityT += Time.deltaTime;
         if (Input.GetKeyDown(KeyCode.X) && durabilityT >= durabilityCool)
         {
-            durabilityT = 0;
-
+            print("Heal");
             GameManager.Instance.HP++;
+            durabilityT = 0;
         }
     }
 
+    
 
+    public IEnumerator PlayerHitEffect()
+    {
+        print("hit");
+
+        isHit = true;
+        for (int i = 0; i < 3; i++)
+        {
+            yield return new WaitForSeconds(0.2f);
+            sr.color = hitColor;
+            yield return new WaitForSeconds(0.2f);
+            sr.color = basicColor;
+        }
+        isHit = false;
+    }
 
     private void Dodge()
     {
@@ -148,12 +175,12 @@ public class Player : Singleton<Player>
 
             Vector3 nor = new Vector3(0, y, 0);
 
-            Image.transform.localRotation = Quaternion.Euler(nor);
+            playerImage.transform.localRotation = Quaternion.Euler(nor);
 
             if (dodgeImageT >= 0.5f) break;
         }
 
-        Image.transform.localRotation = Quaternion.Euler(Vector3.zero);
+        playerImage.transform.localRotation = Quaternion.Euler(Vector3.zero);
 
         isDodge = false;
 
