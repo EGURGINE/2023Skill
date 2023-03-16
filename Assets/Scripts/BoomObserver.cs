@@ -2,9 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyObserver : Singleton<EnemyObserver>
+public class BoomObserver : Singleton<BoomObserver>
 {
-    private List<IObserver> list_Observers = new List<IObserver>();
+    [SerializeField] private List<IObserver> list_Observers = new List<IObserver>();
 
     public void ResisterObserver(IObserver observer)
     {

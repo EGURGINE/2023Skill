@@ -15,7 +15,7 @@ public class Enemy : MonoBehaviour, IObserver
 
             if (hp <= 0)
             {
-                EnemyObserver.Instance.RemoveObserver(this);
+                BoomObserver.Instance.RemoveObserver(this);
                 Die();
             }
         }
@@ -25,33 +25,27 @@ public class Enemy : MonoBehaviour, IObserver
     private Vector3 moveVec;
     [SerializeField] private int score;
     [SerializeField] private ParticleSystem diePc;
-
+    private float z;
     private void Start()
     {
+        BoomObserver.Instance.ResisterObserver(this);
         HP = maxHp;
-        EnemyObserver.Instance.ResisterObserver(this);
         target = GameObject.Find("Player").GetComponent<Player>();
+        moveVec = target.transform.position - transform.position;
+
+        z = (Mathf.Atan2(moveVec.y, moveVec.x) * Mathf.Rad2Deg);
     }
 
 
     private void Update()
     {
-        moveVec = target.transform.position - transform.position; 
-
-        float z = (Mathf.Atan2(moveVec.y, moveVec.x) * Mathf.Rad2Deg);
-
         transform.rotation = Quaternion.Euler(0, 0, z - 90);
-
         transform.Translate(Vector2.up * spd * Time.deltaTime);
     }
 
     private void Die()
     {
-        target.Enemys.Remove(gameObject);
         GameManager.Instance.Score += score;
-        EnemyObserver.Instance.RemoveObserver(this);
-
-
         ParticleSystem pc = Instantiate(diePc);
         pc.transform.position = transform.position;
         Destroy(pc.gameObject,0.5f);
@@ -69,7 +63,6 @@ public class Enemy : MonoBehaviour, IObserver
         if (collision.CompareTag("Player"))
         {
             if (target.isDodge == true || target.isHit == true) return;
-            target.Enemys.Remove(gameObject);
             GameManager.Instance.HP--;
             StartCoroutine(target.PlayerHitEffect());
             Die();

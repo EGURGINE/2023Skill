@@ -5,7 +5,7 @@ using UnityEngine;
 public class Spawner : MonoBehaviour
 {
     [SerializeField] private List<Enemy> enemys = new List<Enemy>();
-    [SerializeField] private List<Transform> spawnPos = new List<Transform> ();
+    [SerializeField] private List<Transform> spawnPos = new List<Transform>();
 
 
     private void Start()
@@ -23,14 +23,13 @@ public class Spawner : MonoBehaviour
     }
 
 
-    private IEnumerator EnemySpawn(Enemy enemy, Vector3 pos, int num)
+    private IEnumerator EnemySpawn(Enemy enemy, Vector3 pos, int spawnCount)
     {
-        for (int i = 0; i < num; i++)
+        for (int i = 0; i < spawnCount; i++)
         {
-            GameObject obj = Instantiate(enemy).gameObject;
-            obj.transform.position = pos;
+            Instantiate(enemy, pos, enemy.transform.rotation);
 
-            yield return new WaitForSeconds(0.5f); 
+            yield return new WaitForSeconds(0.5f);
         }
     }
 
