@@ -23,7 +23,8 @@ public class Enemy : MonoBehaviour, IObserver
     [SerializeField] private float spd;
     private Player target;
     private Vector3 moveVec;
-    [SerializeField] private int score;
+    [SerializeField] private int scoreObjSpawnCount;
+    [SerializeField] private ScoreObj scoreObj;
     [SerializeField] private ParticleSystem diePc;
     private float z;
     private void Start()
@@ -45,11 +46,21 @@ public class Enemy : MonoBehaviour, IObserver
 
     private void Die()
     {
-        GameManager.Instance.Score += score;
         ParticleSystem pc = Instantiate(diePc);
+        CreateScore();
         pc.transform.position = transform.position;
         Destroy(pc.gameObject,0.5f);
         Destroy(gameObject);
+    }
+
+    private void CreateScore()
+    {
+        for (int i = 0; i < scoreObjSpawnCount; i++)
+        {
+            GameObject obj = Instantiate(scoreObj).gameObject;
+            obj.transform.position = transform.position 
+            + new Vector3(Random.Range(-1.5f,1.5f), Random.Range(-1.5f, 1.5f), 0);
+        }
     }
 
 
