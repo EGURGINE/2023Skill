@@ -258,9 +258,8 @@ public class Player : Singleton<Player>
         switch (other.tag)
         {
             case "Item1":
-                if (powerLevel > 2) return;
-
-                powerLevel++;
+                if (powerLevel > 2) GameManager.Instance.Score += 100;
+                else powerLevel++;
                 Destroy(other.gameObject);
                 break;
             case "Item2":
@@ -268,12 +267,16 @@ public class Player : Singleton<Player>
                 if (shildCoroutine != null) StopCoroutine(shildCoroutine);
 
                 shildCoroutine = StartCoroutine(PlayerShild());
+                Destroy(other.gameObject);
                 break;
             case "Item3":
                 GameManager.Instance.HP++;
+                Destroy(other.gameObject);
                 break;
             case "Item4":
                 GameManager.Instance.Fuel += 30;
+                Destroy(other.gameObject);
+
                 break;
         }
 
