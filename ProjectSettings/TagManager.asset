@@ -9,6 +9,10 @@ TagManager:
   - Item2
   - Item3
   - Item4
+  - Meteor
+  - KillBox
+  - EnemyBullet
+  - Boss
   layers:
   - Default
   - TransparentFX

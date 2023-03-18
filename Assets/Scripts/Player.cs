@@ -36,8 +36,11 @@ public class Player : Singleton<Player>
 
     [SerializeField] private ParticleSystem boomPc;
 
-    private Color basicColor = Color.white;
-    private Color hitColor = new Color(255, 255, 255, 10);
+    [SerializeField] private MeshRenderer shildMaterial;
+    [SerializeField] private GameObject playerShild;
+
+    [SerializeField] private Color basicColor = Color.white;
+    [SerializeField] private Color hitColor = new Color(255, 255, 255, 10);
 
     private Coroutine shildCoroutine;
 
@@ -182,15 +185,26 @@ public class Player : Singleton<Player>
 
     private IEnumerator PlayerShild()
     {
+        Vector2 vec = Vector2.zero;
         isHit = true;
-        yield return new WaitForSeconds(3f);
+        float t = 0;
+
+        playerShild.SetActive(isHit);
+
+        while (true)
+        {
+            yield return null;
+            t += Time.deltaTime;
+            vec.x +=Time.deltaTime * spd;
+            shildMaterial.material.SetTextureOffset("_MainTex", vec);
+            if (t > 3) break;
+        }
         isHit = false;
+        playerShild.SetActive(isHit);
     }
 
     public IEnumerator PlayerHitEffect()
     {
-        print("hit");
-
         isHit = true;
         for (int i = 0; i < 3; i++)
         {
@@ -253,6 +267,13 @@ public class Player : Singleton<Player>
         return setPos;
     }
 
+    private void PlayerHit()
+    {
+        if (isDodge == true || isHit == true) return;
+        GameManager.Instance.HP--;
+        StartCoroutine(PlayerHitEffect());
+    }
+
     private void OnTriggerEnter(Collider other)
     {
         switch (other.tag)
@@ -276,7 +297,14 @@ public class Player : Singleton<Player>
             case "Item4":
                 GameManager.Instance.Fuel += 30;
                 Destroy(other.gameObject);
+                break;
 
+            case "Enemy":
+                PlayerHit();
+                break;
+            case "EnemyBullet":
+                Destroy(other.gameObject);
+                PlayerHit();
                 break;
         }
 

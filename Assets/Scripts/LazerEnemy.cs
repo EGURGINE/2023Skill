@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Enemy : MonoBehaviour, IObserver
+public class lazerEnemy : MonoBehaviour, IObserver
 {
     [SerializeField] private float maxHp;
     private float hp;
@@ -27,10 +27,6 @@ public class Enemy : MonoBehaviour, IObserver
     [SerializeField] private ScoreObj scoreObj;
     [SerializeField] private ParticleSystem diePc;
     private float z;
-
-    [SerializeField] private EnemyBullet bullet;
-    private Coroutine attackCoroutine;
-
     private void Start()
     {
         BoomObserver.Instance.ResisterObserver(this);
@@ -39,8 +35,6 @@ public class Enemy : MonoBehaviour, IObserver
         moveVec = target.transform.position - transform.position;
 
         z = (Mathf.Atan2(moveVec.y, moveVec.x) * Mathf.Rad2Deg);
-
-        attackCoroutine = StartCoroutine(Attack());
     }
 
 
@@ -50,26 +44,12 @@ public class Enemy : MonoBehaviour, IObserver
         transform.Translate(Vector2.up * spd * Time.deltaTime);
     }
 
-    private IEnumerator Attack()
-    {
-        yield return new WaitForSeconds(2f);
-        EnemyBullet bulletObj1 = Instantiate(bullet);
-        bulletObj1.transform.position = transform.position;
-        bulletObj1.BulletSet(10, 0, z - 90);
-        print("shot");
-        attackCoroutine = StartCoroutine(Attack());
-    }
-
-
     private void Die()
     {
-        StopCoroutine(attackCoroutine);
-
-
         ParticleSystem pc = Instantiate(diePc);
         CreateScore();
         pc.transform.position = transform.position;
-        Destroy(pc.gameObject,0.5f);
+        Destroy(pc.gameObject, 0.5f);
         Destroy(gameObject);
     }
 
@@ -78,8 +58,8 @@ public class Enemy : MonoBehaviour, IObserver
         for (int i = 0; i < scoreObjSpawnCount; i++)
         {
             GameObject obj = Instantiate(scoreObj).gameObject;
-            obj.transform.position = transform.position 
-            + new Vector3(Random.Range(-1.5f,1.5f), Random.Range(-1.5f, 1.5f), 0);
+            obj.transform.position = transform.position
+            + new Vector3(Random.Range(-1.5f, 1.5f), Random.Range(-1.5f, 1.5f), 0);
         }
     }
 
@@ -94,13 +74,9 @@ public class Enemy : MonoBehaviour, IObserver
         if (collision.CompareTag("Player"))
         {
             if (target.isDodge == true || target.isHit == true) return;
+            GameManager.Instance.HP--;
+            StartCoroutine(target.PlayerHitEffect());
             Die();
-        }
-
-        if (collision.CompareTag("KillBox"))
-        {
-            BoomObserver.Instance.RemoveObserver(this);
-            Destroy(gameObject);
         }
     }
 

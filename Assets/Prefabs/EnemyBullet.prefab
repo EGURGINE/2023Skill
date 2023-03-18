@@ -12,10 +12,10 @@ GameObject:
   - component: {fileID: 7555871329454143767}
   - component: {fileID: 6878841735743192358}
   - component: {fileID: 6642420798349999075}
-  - component: {fileID: 989682902528127047}
   - component: {fileID: 1184195438216624614}
+  - component: {fileID: 2854727263474354141}
   m_Layer: 0
-  m_Name: Bullet1
+  m_Name: EnemyBullet
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -77,7 +77,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: -18
-  m_Sprite: {fileID: 21300000, guid: a0e8c185e976a6647867209d3ee639b1, type: 3}
+  m_Sprite: {fileID: 21300000, guid: a917e6cb38d3c0347bf24b52060f8085, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -117,20 +117,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &989682902528127047
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7555871329454143764}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a0993b83722b040479bceeda0dab3333, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  scoreObj: {fileID: 2073233825764350774, guid: c535e75ff3d0ba340bf80420e1e230aa, type: 3}
-  hitPc: {fileID: 8355382247360961274, guid: b226d3d729663ea49a09ebd50ebde812, type: 3}
 --- !u!96 &1184195438216624614
 TrailRenderer:
   serializedVersion: 2
@@ -239,3 +225,16 @@ TrailRenderer:
   m_MinVertexDistance: 0.1
   m_Autodestruct: 0
   m_Emitting: 1
+--- !u!114 &2854727263474354141
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7555871329454143764}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0db51429853d27b48979a48f820e4d10, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  scoreObj: {fileID: 2073233825764350774, guid: c535e75ff3d0ba340bf80420e1e230aa, type: 3}

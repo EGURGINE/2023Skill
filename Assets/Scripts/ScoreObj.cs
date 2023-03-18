@@ -51,7 +51,6 @@ public class ScoreObj : MonoBehaviour
         {
             GameManager.Instance.Score += 50;
             Destroy(transform.gameObject);
-            print("dd");
         }
     }
 }

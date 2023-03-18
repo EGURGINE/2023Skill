@@ -9,6 +9,7 @@ public class Bullet : MonoBehaviour
 
     private Vector3 moveVec = Vector3.up;
 
+    [SerializeField] ParticleSystem hitPc;
     private void Start()
     {
         Destroy(gameObject,5);
@@ -32,9 +33,29 @@ public class Bullet : MonoBehaviour
     {
         if (other.CompareTag("Enemy"))
         {
+            GameObject pc = Instantiate(hitPc).gameObject;
+            pc.transform.position = transform.position;
+            Destroy(pc, 0.1f);
             other.GetComponent<Enemy>().OnDamage(dmg);
             Destroy(gameObject);
         }
+        if (other.CompareTag("Boss"))
+        {
+            GameObject pc = Instantiate(hitPc).gameObject;
+            pc.transform.position = transform.position;
+            Destroy(pc, 0.1f);
+            other.GetComponent<Boss>().OnDamage(dmg);
+            Destroy(gameObject);
+        }
+        if (other.CompareTag("Meteor"))
+        {
+            other.GetComponent<Meteor>().OnDamage(dmg);
+            Destroy(gameObject);
+        }
+
+        if (other.CompareTag("KillBox"))
+        {
+            Destroy(gameObject);
+        }
     }
-   
 }

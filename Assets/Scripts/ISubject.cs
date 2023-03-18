@@ -16,4 +16,5 @@ public interface ISubject
 public interface IObserver
 {
     void DestroyObj();
+    Vector3 ThisTransform();
 }
