@@ -6,9 +6,9 @@ public class Meteor : MonoBehaviour,IObserver
 {
     [SerializeField] private float hp;
 
-    [SerializeField] private Items[] Items;
     private Rigidbody rb => GetComponent<Rigidbody>();
 
+    [SerializeField] private Items[] Items;
     int spawnItemNum => Random.Range(0, ((int)EItemType.End));
 
     private bool isDie;

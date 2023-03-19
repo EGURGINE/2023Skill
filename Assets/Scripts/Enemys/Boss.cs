@@ -99,7 +99,7 @@ public class Boss : MonoBehaviour
             yield return new WaitForSeconds(0.5f);
         }
 
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(1.5f);
         BossPatton();
     }
 
@@ -137,7 +137,7 @@ public class Boss : MonoBehaviour
                 yield return new WaitForSeconds(0.1f);
             }
         }
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(1.5f);
         BossPatton();
     }
     private IEnumerator Skill2()
@@ -179,7 +179,7 @@ public class Boss : MonoBehaviour
             yield return new WaitForSeconds(0.3f);
         }
 
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(1.5f);
         BossPatton();
     }
 
@@ -204,7 +204,7 @@ public class Boss : MonoBehaviour
 
     private IEnumerator SubAttack()
     {
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(1f);
 
         for (int j = 0; j < 2; j++)
         {

@@ -13,7 +13,7 @@ public class EnemyBullet : MonoBehaviour, IObserver
 
     private void Start()
     {
-        Destroy(gameObject, 5);
+        BoomObserver.Instance.ResisterObserver(this);
     }
 
     private void Update()
@@ -40,6 +40,7 @@ public class EnemyBullet : MonoBehaviour, IObserver
         if (other.CompareTag("Player"))
         {
             BoomObserver.Instance.RemoveObserver(this);
+            Destroy(gameObject);
         }
     }
 
@@ -48,6 +49,7 @@ public class EnemyBullet : MonoBehaviour, IObserver
         GameObject obj = Instantiate(scoreObj).gameObject;
         obj.transform.position = transform.position
         + new Vector3(Random.Range(-1.5f, 1.5f), Random.Range(-1.5f, 1.5f), 0);
+        Destroy(gameObject);
     }
 
     public Vector3 ThisTransform()

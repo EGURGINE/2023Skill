@@ -284,9 +284,7 @@ public class Player : Singleton<Player>
                 Destroy(other.gameObject);
                 break;
             case "Item2":
-
                 if (shildCoroutine != null) StopCoroutine(shildCoroutine);
-
                 shildCoroutine = StartCoroutine(PlayerShild());
                 Destroy(other.gameObject);
                 break;
@@ -298,7 +296,6 @@ public class Player : Singleton<Player>
                 GameManager.Instance.Fuel += 30;
                 Destroy(other.gameObject);
                 break;
-
             case "Enemy":
                 PlayerHit();
                 break;
