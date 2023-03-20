@@ -7,7 +7,7 @@ public class GameManager : Singleton<GameManager>
     private bool isGameStart;
 
     [SerializeField] private Image[] fuelImages;
-    private float fuel = 100;
+    private float fuel   = 100;
     private float maxFuel = 100;
     public float Fuel
     {
