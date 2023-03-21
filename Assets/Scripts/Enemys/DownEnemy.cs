@@ -17,7 +17,6 @@ public class DownEnemy : Enemy
         EnemyBullet bulletObj1 = Instantiate(bullet);
         bulletObj1.transform.position = transform.position;
         bulletObj1.BulletSet(10, 0, z - 90);
-        print("shot");
         attackCoroutine = StartCoroutine(Attack());
     }
 }

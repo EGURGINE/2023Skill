@@ -30,7 +30,6 @@ public class LazerEnemy : Enemy
             bulletObj1.BulletSet(10, 0, z - 90);
             yield return new WaitForSeconds(0.01f);
         }
-        print("shot");
         attackCoroutine = StartCoroutine(Attack());
     }
 }

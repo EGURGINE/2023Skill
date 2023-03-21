@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Runtime.ExceptionServices;
 using UnityEditor.Purchasing;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.Rendering;
 
 public class Player : Singleton<Player>
@@ -23,12 +24,16 @@ public class Player : Singleton<Player>
 
     public bool isDodge;
     [SerializeField] private float dodgeCool;
+    [SerializeField] private Image dodgeCoolImage;
     private float dodgeT;
 
+
     [SerializeField] private float boomCool;
+    [SerializeField] private Image boomCoolImage;
     private float boomT;
 
     [SerializeField] private float durabilityCool;
+    [SerializeField] private Image durabilityCoolImage;
     private float durabilityT;
 
     [SerializeField] private Bullet bullet;
@@ -170,6 +175,8 @@ public class Player : Singleton<Player>
             Destroy(boom.gameObject, 1);
             BoomObserver.Instance.NotifyObservers();
         }
+
+        boomCoolImage.fillAmount = boomT / boomCool;
     }
 
     private void DurabilityRepair()
@@ -181,6 +188,7 @@ public class Player : Singleton<Player>
             GameManager.Instance.HP++;
             durabilityT = 0;
         }
+        durabilityCoolImage.fillAmount = durabilityT/durabilityCool;
     }
 
     private IEnumerator PlayerShild()
@@ -224,6 +232,7 @@ public class Player : Singleton<Player>
             dodgeT = 0;
             StartCoroutine(Dodging());
         }
+        dodgeCoolImage.fillAmount = dodgeT / dodgeCool;
     }
 
     private IEnumerator Dodging()

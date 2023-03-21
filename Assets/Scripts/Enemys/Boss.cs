@@ -1,9 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
-public class Boss : MonoBehaviour
+public class Boss : MonoBehaviour,IObserverBoos
 {
+    [SerializeField] private GameObject bossHPUI;
+    [SerializeField] private Image bossHPImage;
+
     [SerializeField] private float maxHp;
     private float hp;
     public float HP
@@ -17,6 +21,8 @@ public class Boss : MonoBehaviour
             {
                 Die();
             }
+
+            bossHPImage.fillAmount = hp / maxHp;
         }
     }
     [SerializeField] private float spd;
@@ -44,9 +50,11 @@ public class Boss : MonoBehaviour
     [SerializeField] private float moveDir = 1;
     private void Start()
     {
-        HP = maxHp;
-        target = GameObject.Find("Player").GetComponent<Player>();
+        BoomObserver.Instance.ResisterObserver(this);
 
+        bossHPUI.SetActive(true);
+        StartCoroutine(StartHP());
+        target = GameObject.Find("Player").GetComponent<Player>();
 
         mainAttackCoroutine = StartCoroutine(BasicAttack());
         subAttackCoroutine = StartCoroutine(SubAttack());
@@ -65,6 +73,18 @@ public class Boss : MonoBehaviour
         duration += moveDir * Time.deltaTime;
         if (duration > maxDuration || duration <= 0) moveDir *= -1;
         transform.position = Vector3.Lerp(startPos, endPos, duration / maxDuration);
+    }
+
+    private IEnumerator StartHP()
+    {
+        float time = 0;
+        while (time < 1)
+        {
+            yield return null;
+            time += Time.deltaTime;
+            HP = Mathf.Lerp(1, maxHp, time / 1);
+        }
+        print(HP);
     }
 
     private IEnumerator BasicAttack()
@@ -217,8 +237,8 @@ public class Boss : MonoBehaviour
     }
     private void Die()
     {
+        BoomObserver.Instance.RemoveObserver(this);
         StopCoroutine(mainAttackCoroutine);
-
 
         ParticleSystem pc = Instantiate(diePc);
         CreateScore();
@@ -239,5 +259,10 @@ public class Boss : MonoBehaviour
     public void OnDamage(float dmg)
     {
         HP -= dmg;
+    }
+
+    public void OnBoomDamage()
+    {
+        OnDamage(80);
     }
 }
