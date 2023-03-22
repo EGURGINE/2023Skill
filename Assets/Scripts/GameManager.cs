@@ -6,7 +6,8 @@ public class GameManager : Singleton<GameManager>
 {
     private bool isGameStart;
 
-    [SerializeField] private Image[] fuelImages;
+    [SerializeField] private Image fuelImage;
+    [SerializeField] private Text fuelValueTxt;
     private float fuel   = 100;
     private float maxFuel = 100;
     public float Fuel
@@ -21,13 +22,14 @@ public class GameManager : Singleton<GameManager>
 
             if (fuel <= 0) Die(); 
 
-            fuelImages[0].fillAmount = fuel / maxFuel;
-            fuelImages[1].fillAmount = fuel / maxFuel;
+            fuelImage.fillAmount = fuel / maxFuel;
+            fuelValueTxt.text = ((int)((fuel / maxFuel) * 100)).ToString()+"%";
+
         }
     }
     [SerializeField] private Image[] hpImages;
-    private float hp = 3;
-    private float maxHP = 3;
+    private float hp = 6;
+    private float maxHP = 6;
     public float HP
     {
         get

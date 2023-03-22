@@ -18,3 +18,8 @@ public interface IObserver
     void DestroyObj();
     Vector3 ThisTransform();
 }
+
+public interface IObserverBoos
+{
+    void OnBoomDamage();
+}
