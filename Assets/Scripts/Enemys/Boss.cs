@@ -9,7 +9,7 @@ public abstract class Boss : MonoBehaviour, IObserverBoos
     [SerializeField] private Image bossHPImage;
 
     [SerializeField] private float maxHp;
-    private float hp;
+    [SerializeField] private float hp;
     public float HP
     {
         get { return hp; }
@@ -37,6 +37,7 @@ public abstract class Boss : MonoBehaviour, IObserverBoos
     protected Coroutine mainAttackCoroutine;
     protected Coroutine subAttackCoroutine;
 
+    protected bool isStart = false;
     
 
     
@@ -74,7 +75,7 @@ public abstract class Boss : MonoBehaviour, IObserverBoos
             time += Time.deltaTime;
             HP = Mathf.Lerp(1, maxHp, time / 1);
         }
-        print(HP);
+        isStart = true;
     }
 
     protected abstract IEnumerator BasicAttack();
@@ -109,6 +110,7 @@ public abstract class Boss : MonoBehaviour, IObserverBoos
     private void Die()
     {
         BoomObserver.Instance.RemoveObserver(this);
+        if(mainAttackCoroutine != null)
         StopCoroutine(mainAttackCoroutine);
 
         ParticleSystem pc = Instantiate(diePc);
