@@ -25923,9 +25923,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1695650403970245554}
-  - component: {fileID: 1695650403970245565}
   - component: {fileID: 1695650403970245567}
   - component: {fileID: 1695650403970245564}
+  - component: {fileID: 3847462477449046937}
   m_Layer: 0
   m_Name: TankBoss
   m_TagString: Boss
@@ -25955,39 +25955,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 150}
---- !u!114 &1695650403970245565
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1695650403970245555}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7bfeac3dd4b16c840838498ec232cf46, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  bossHPUI: {fileID: 8842587979954688059}
-  bossHPImage: {fileID: 6750569069128890820}
-  maxHp: 500
-  spd: 5
-  scoreObjSpawnCount: 50
-  scoreObj: {fileID: 2073233825764350774, guid: c535e75ff3d0ba340bf80420e1e230aa, type: 3}
-  diePc: {fileID: 1926359559470274773, guid: b95497f688c1032458326a260288bbc0, type: 3}
-  bullet: {fileID: 2854727263474354141, guid: 626f200c19d777442aa76f7fd00ce51f, type: 3}
-  Head: {fileID: 1695650403895233295}
-  headShotPos: {fileID: 1695650402972057637}
-  subHead:
-  - {fileID: 1695650402355766361}
-  - {fileID: 1695650402609931557}
-  subShotPos:
-  - {fileID: 1695650402691041623}
-  - {fileID: 1695650403261687941}
-  startPos: {x: -5.4, y: -1.9, z: 0}
-  endPos: {x: 0.2, y: 7.8, z: 0}
-  maxDuration: 6
-  duration: 0
-  moveDir: 1
 --- !u!65 &1695650403970245567
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -26017,6 +25984,39 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &3847462477449046937
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1695650403970245555}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8f60a7c42d9f8a5499f7d265374018df, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bossHPUI: {fileID: 8842587979954688059}
+  bossHPImage: {fileID: 6750569069128890820}
+  maxHp: 500
+  spd: 5
+  scoreObjSpawnCount: 50
+  scoreObj: {fileID: 2073233825764350774, guid: c535e75ff3d0ba340bf80420e1e230aa, type: 3}
+  diePc: {fileID: 1926359559470274773, guid: b95497f688c1032458326a260288bbc0, type: 3}
+  bullet: {fileID: 2854727263474354141, guid: 626f200c19d777442aa76f7fd00ce51f, type: 3}
+  startPos: {x: -7.7, y: -1.5, z: 0}
+  endPos: {x: -3, y: 6.8, z: 0}
+  Head: {fileID: 1695650403895233295}
+  headShotPos: {fileID: 1695650402972057637}
+  subHead:
+  - {fileID: 1695650402355766361}
+  - {fileID: 1695650402609931557}
+  subShotPos:
+  - {fileID: 1695650402691041623}
+  - {fileID: 1695650403261687941}
+  maxDuration: 6
+  duration: 0
+  moveDir: 1
 --- !u!1 &2310756745641172870
 GameObject:
   m_ObjectHideFlags: 0
