@@ -134,7 +134,18 @@ public class Stage2_Boss : Boss
         }
         else
         {
+            for (int j = 0; j < 15; j++)
+            {
 
+                for (int i = 0; i < 2; i++)
+                {
+                    EnemyBullet bulletObj1 = Instantiate(bullet);
+                    bulletObj1.transform.position = (i ==0) ? shotPos.position + Vector3.right * 2 : shotPos.position + Vector3.left * 2;
+                    bulletObj1.BulletSet(5, 0, z - 90 + Random.Range(-30,30));
+                }
+
+                yield return new WaitForSeconds(0.1f);
+            }
         }
         yield return new WaitForSeconds(3f);
         PattonAndMove();
@@ -142,11 +153,28 @@ public class Stage2_Boss : Boss
 
     protected override IEnumerator Skill2()
     {
-        if (is2Phase == false)
+        if (is2Phase == true)
         {
+
+            for (int k = 0; k < 8; k++)
+            {
+                for (int i = 0; i < 10; i++)
+                {
+                    for (int j = 0; j < 360; j += 360 / 4)
+                    {
+                        EnemyBullet bulletObj1 = Instantiate(bullet);
+                        bulletObj1.transform.position = shotPos.position;
+
+                        bulletObj1.BulletSet(5, 0, j + z + (i * 3f));
+                    }
+                    yield return new WaitForSeconds(0.05f);
+                }
+                yield return new WaitForSeconds(1f);
+            }
+
             yield return new WaitForSeconds(3f);
-            PattonAndMove();
         }
+        PattonAndMove();
     }
 
     protected override IEnumerator SubAttack()
