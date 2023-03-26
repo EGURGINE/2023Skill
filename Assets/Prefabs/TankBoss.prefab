@@ -25998,14 +25998,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bossHPUI: {fileID: 8842587979954688059}
   bossHPImage: {fileID: 6750569069128890820}
-  maxHp: 500
+  maxHp: 250
+  hp: 0
   spd: 5
   scoreObjSpawnCount: 50
   scoreObj: {fileID: 2073233825764350774, guid: c535e75ff3d0ba340bf80420e1e230aa, type: 3}
   diePc: {fileID: 1926359559470274773, guid: b95497f688c1032458326a260288bbc0, type: 3}
   bullet: {fileID: 2854727263474354141, guid: 626f200c19d777442aa76f7fd00ce51f, type: 3}
-  startPos: {x: -7.7, y: -1.5, z: 0}
-  endPos: {x: -3, y: 6.8, z: 0}
   Head: {fileID: 1695650403895233295}
   headShotPos: {fileID: 1695650402972057637}
   subHead:
@@ -26017,6 +26016,8 @@ MonoBehaviour:
   maxDuration: 6
   duration: 0
   moveDir: 1
+  startPos: {x: -7.7, y: -1.5, z: 0}
+  endPos: {x: -3, y: 6.8, z: 0}
 --- !u!1 &2310756745641172870
 GameObject:
   m_ObjectHideFlags: 0

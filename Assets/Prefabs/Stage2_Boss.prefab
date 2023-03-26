@@ -694,7 +694,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &4273286869845975440
 Transform:
   m_ObjectHideFlags: 0
@@ -727,8 +727,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bossHPUI: {fileID: 3088057758028374919}
   bossHPImage: {fileID: 3088057757900269727}
-  maxHp: 500
-  hp: 500
+  maxHp: 250
+  hp: 250
   spd: 0
   scoreObjSpawnCount: 50
   scoreObj: {fileID: 2073233825764350774, guid: c535e75ff3d0ba340bf80420e1e230aa, type: 3}

@@ -11,6 +11,8 @@ public class Player : Singleton<Player>
     [SerializeField] private GameObject playerImage;
     private SpriteRenderer sr;
 
+    public bool isGameStart;
+
     [SerializeField] private float spd;
     [SerializeField] private float dmg;
     [SerializeField] private float bulletSpd;
@@ -56,6 +58,8 @@ public class Player : Singleton<Player>
 
     void Update()
     {
+        if (isGameStart == false) return;
+
         PlayerMove();
         Attack();
         Dodge();

@@ -12,35 +12,71 @@ public class Spawner : MonoBehaviour
     [SerializeField] private Transform stage1BossPos;
     private void Start()
     {
+
+        switch (GameManager.Instance.stageNum)
+        {
+            case 1:
         StartCoroutine(Stage1Spawn());
+                break;
+            case 2:
+        StartCoroutine(Stage2Spawn());
+                break;
+            case 3:
+                break;
+        }
+
+
+        StartCoroutine(MeteorSpawn());
     }
 
     private IEnumerator MeteorSpawn()
     {
         yield return new WaitForSeconds(8f);
 
-        if(Random.Range(0,2) > 0)
-        Instantiate(meteor, spawnPos[Random.Range(0,6)]);
+        if (Random.Range(0, 2) > 0)
+            Instantiate(meteor, spawnPos[Random.Range(0, 5)]);
 
         StartCoroutine(MeteorSpawn());
     }
+    
     private IEnumerator Stage1Spawn()
     {
         StartCoroutine(EnemySpawn(enemys[0], spawnPos[0].position, 1));
         StartCoroutine(EnemySpawn(enemys[0], spawnPos[1].position, 1));
         StartCoroutine(EnemySpawn(enemys[0], spawnPos[2].position, 1));
         yield return EnemySpawn(enemys[0], spawnPos[3].position, 2);
+        yield return new WaitForSeconds(3f);
         StartCoroutine(EnemySpawn(enemys[1], spawnPos[0].position, 1));
         StartCoroutine(EnemySpawn(enemys[2], spawnPos[1].position, 1));
         StartCoroutine(EnemySpawn(enemys[1], spawnPos[2].position, 1));
         yield return EnemySpawn(enemys[2], spawnPos[3].position, 2);
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(3f);
         StartCoroutine(EnemySpawn(enemys[0], spawnPos[0].position, 1));
         StartCoroutine(EnemySpawn(enemys[2], spawnPos[1].position, 1));
         StartCoroutine(EnemySpawn(enemys[1], spawnPos[3].position, 1));
         yield return EnemySpawn(enemys[2], spawnPos[4].position, 1);
         yield return new WaitForSeconds(5f);
         StartCoroutine(EnemySpawn(boss[0], stage1BossPos.position, 1));
+
+    }
+    private IEnumerator Stage2Spawn()
+    {
+        StartCoroutine(EnemySpawn(enemys[0], spawnPos[0].position, 1));
+        StartCoroutine(EnemySpawn(enemys[0], spawnPos[1].position, 1));
+        StartCoroutine(EnemySpawn(enemys[0], spawnPos[2].position, 1));
+        yield return EnemySpawn(enemys[0], spawnPos[3].position, 2);
+        yield return new WaitForSeconds(3f);
+        StartCoroutine(EnemySpawn(enemys[1], spawnPos[0].position, 1));
+        StartCoroutine(EnemySpawn(enemys[2], spawnPos[1].position, 1));
+        StartCoroutine(EnemySpawn(enemys[1], spawnPos[2].position, 1));
+        yield return EnemySpawn(enemys[2], spawnPos[3].position, 2);
+        yield return new WaitForSeconds(3f);
+        StartCoroutine(EnemySpawn(enemys[0], spawnPos[0].position, 1));
+        StartCoroutine(EnemySpawn(enemys[2], spawnPos[1].position, 1));
+        StartCoroutine(EnemySpawn(enemys[1], spawnPos[3].position, 1));
+        yield return EnemySpawn(enemys[2], spawnPos[4].position, 1);
+        yield return new WaitForSeconds(5f);
+        StartCoroutine(EnemySpawn(boss[1], stage1BossPos.position, 1));
 
     }
 

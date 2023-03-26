@@ -8,7 +8,7 @@ public abstract class Boss : MonoBehaviour, IObserverBoos
     [SerializeField] private GameObject bossHPUI;
     [SerializeField] private Image bossHPImage;
 
-    [SerializeField] private float maxHp;
+    [SerializeField] protected float maxHp;
     [SerializeField] private float hp;
     public float HP
     {
@@ -118,6 +118,8 @@ public abstract class Boss : MonoBehaviour, IObserverBoos
         pc.transform.position = transform.position;
         Destroy(pc.gameObject, 0.5f);
         Destroy(gameObject);
+
+        GameManager.Instance.isClear();
     }
 
     private void CreateScore()

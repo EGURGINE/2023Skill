@@ -54,7 +54,7 @@ public class Stage2_Boss : Boss
 
     protected override void Move()
     {
-        if (isStart == true && HP <= 250 && is2Phase == false) StartCoroutine(Phase2());
+        if (isStart == true && HP <= maxHp/2 && is2Phase == false) StartCoroutine(Phase2());
     }
 
     private IEnumerator Phase2()
