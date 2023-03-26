@@ -10507,7 +10507,7 @@ RectTransform:
   m_Children:
   - {fileID: 1079412862}
   m_Father: {fileID: 1807573455}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -12654,7 +12654,7 @@ RectTransform:
   - {fileID: 1156191738}
   - {fileID: 1984647533}
   m_Father: {fileID: 1807573455}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
@@ -25287,8 +25287,8 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 749644035}
   - {fileID: 204865203}
+  - {fileID: 749644035}
   m_Father: {fileID: 711675335}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -25358,6 +25358,18 @@ MonoBehaviour:
   my:
     score: 0
     name: ddd
+  inputNameWnd: {fileID: 204865202}
+  rankingWnd: {fileID: 749644034}
+  rankerNames:
+  - {fileID: 647055347}
+  - {fileID: 1092985489}
+  - {fileID: 1753676214}
+  rankerScores:
+  - {fileID: 1467145091}
+  - {fileID: 514958262}
+  - {fileID: 500436009}
+  myName: {fileID: 1062299420}
+  myScore: {fileID: 1441881501}
 --- !u!1 &1813240242
 GameObject:
   m_ObjectHideFlags: 0
