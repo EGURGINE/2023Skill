@@ -72,7 +72,16 @@ public class RankingBoard : MonoBehaviour
 
     public void NextStage()
     {
+        RankingSave();
         GameManager.Instance.NextStage();
     }
 
+    private void RankingSave()
+    {
+        for (int i = 0; i < rankers.Count; i++)
+        {
+            PlayerPrefs.SetString($"{GameManager.Instance.stageNum}StageRankerName{i}", rankers[i].name);
+            PlayerPrefs.SetFloat($"{GameManager.Instance.stageNum}StageRankerScore{i}", rankers[i].score);
+        }
+    }
 }
