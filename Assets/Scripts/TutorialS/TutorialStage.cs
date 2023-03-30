@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 public class TutorialStage : Singleton<TutorialStage>
 {
@@ -17,6 +18,10 @@ public class TutorialStage : Singleton<TutorialStage>
     public int tutorialNum = 0;
     public bool isEscape;
 
+    [SerializeField] private GameObject player;
+
+    [SerializeField] private Image fade;
+
     private void Start()
     {
         NextTutorial();
@@ -25,7 +30,7 @@ public class TutorialStage : Singleton<TutorialStage>
     {
         if (Input.GetMouseButtonDown(0))
         {
-            if (tutorialNum == 3 || tutorialNum == 5 || tutorialNum == 7 || tutorialNum == 8) return;
+            if (tutorialNum == 3 || tutorialNum == 5 || tutorialNum == 7 || tutorialNum == 9) return;
             tutorialNum++;
             NextTutorial();
         }
@@ -48,6 +53,9 @@ public class TutorialStage : Singleton<TutorialStage>
                 meteorsObjs.SetActive(true);
                 StartCoroutine(EscapeCheck());
                 break;
+            case 10:
+                StartCoroutine(NextStage());
+                break;
             default:
                 Begin();
                 break;
@@ -56,6 +64,22 @@ public class TutorialStage : Singleton<TutorialStage>
     [SerializeField] private GameObject escapeWnd;
     [SerializeField] private Image escapeGage;
 
+    private IEnumerator NextStage()
+    {
+        fade.gameObject.SetActive(true);
+        Color a = new Color();
+        float t = 0;
+        while (t<1)
+        {
+            yield return null;
+            t += Time.deltaTime;
+
+            a.a = Mathf.Lerp(0, 1, t / 1);
+            fade.color = a;
+        }
+        DataManager.instance.Stage++;
+        SceneManager.LoadScene("Stage1");
+    }
     private IEnumerator EscapeCheck()
     {
         escapeWnd.SetActive(true);
@@ -65,14 +89,33 @@ public class TutorialStage : Singleton<TutorialStage>
             yield return null;
             if(Input.GetKey(KeyCode.V)) t += Time.deltaTime;
             else t -= (Time.deltaTime * 0.8f);
+            if (t <= 0) t = 0;
             escapeGage.fillAmount = t / 2;
         }
         isEscape = true;
         escapeWnd.SetActive(false);
+        StartCoroutine(PlayerEscape());
     }
+    private IEnumerator PlayerEscape()
+    {
+        player.GetComponent<Player>().isGameStart = false;
+        Vector3 startPos = player.transform.position;
+        Vector3 endPos = Vector3.up * 15;
 
+        Begin();
+
+        float t = 0;
+        while (t < 2) 
+        {
+            yield return null;
+            t+= Time.deltaTime;
+            player.transform.position = Vector3.Lerp(startPos, endPos, t / 2);
+        }
+
+    }
     public void Begin()
     {
+        
         sentences.Clear();
         sentences.Enqueue(info.sentences[tutorialNum]);
         Next();
@@ -103,7 +146,6 @@ public class TutorialStage : Singleton<TutorialStage>
     {
         if (sentences != null)
         {
-            print("end");
             StopCoroutine(sentenceCo);
             tutorialNum++;
             NextTutorial();

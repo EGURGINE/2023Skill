@@ -39,6 +39,7 @@ public class TutorialMeteor : MonoBehaviour
                     {
                         TutorialStage.Instance.info.sentences[7] = "아깝습니다, 다음번엔 피해 보도록 노력하죠.";
                     }
+                    TutorialStage.Instance.tutorialNum = 7;
                     TutorialStage.Instance.Begin();
                 }
                 break;
@@ -47,6 +48,7 @@ public class TutorialMeteor : MonoBehaviour
                 {
                     Destroy(other.gameObject);
                     Destroy(gameObject);
+                    TutorialStage.Instance.tutorialNum = 5;
                     TutorialStage.Instance.Begin();
                 }
                 break;

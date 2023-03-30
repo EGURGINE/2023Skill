@@ -5,6 +5,8 @@ using UnityEditor.Purchasing;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Rendering;
+using System.Runtime.CompilerServices;
+using TMPro;
 
 public class Player : Singleton<Player>
 {
@@ -50,7 +52,8 @@ public class Player : Singleton<Player>
     [SerializeField] private Color hitColor = new Color(255, 255, 255, 10);
 
     private Coroutine shildCoroutine;
-
+    [SerializeField] private Text skillCoolWaring;
+    private Coroutine skillCoolWaringCo = null;
     private void Start()
     {
         sr = playerImage.GetComponent<SpriteRenderer>();
@@ -67,6 +70,19 @@ public class Player : Singleton<Player>
         DurabilityRepair();
     }
 
+    private IEnumerator IsSkillCool()
+    {
+        
+        float t = 0;
+        Color a = Color.red;
+        while (t < 1) 
+        {
+            yield return null;
+            t += Time.deltaTime;
+            a.a = Mathf.Lerp(1, 0, t/1);
+            skillCoolWaring.color = a;
+        }
+    }
     private void Attack()
     {
         shotT += Time.deltaTime;
@@ -171,13 +187,22 @@ public class Player : Singleton<Player>
     private void Boom()
     {
         boomT += Time.deltaTime;
-        if (Input.GetKeyDown(KeyCode.C) && boomT >= boomCool)
+        if (Input.GetKeyDown(KeyCode.C))
         {
-            boomT = 0;
 
-            ParticleSystem boom = Instantiate(boomPc, transform);
-            Destroy(boom.gameObject, 1);
-            BoomObserver.Instance.NotifyObservers();
+            if (boomT >= boomCool)
+            {
+                boomT = 0;
+
+                ParticleSystem boom = Instantiate(boomPc, transform);
+                Destroy(boom.gameObject, 1);
+                BoomObserver.Instance.NotifyObservers();
+            }
+            else
+            {
+                if (skillCoolWaringCo != null) StopCoroutine(skillCoolWaringCo);
+                skillCoolWaringCo = StartCoroutine(IsSkillCool());
+            }
         }
 
         boomCoolImage.fillAmount = boomT / boomCool;
@@ -186,11 +211,20 @@ public class Player : Singleton<Player>
     private void DurabilityRepair()
     {
         durabilityT += Time.deltaTime;
-        if (Input.GetKeyDown(KeyCode.X) && durabilityT >= durabilityCool)
+        if (Input.GetKeyDown(KeyCode.X))
         {
-            print("Heal");
-            GameManager.Instance.HP++;
-            durabilityT = 0;
+            if (durabilityT >= durabilityCool)
+            {
+                print("Heal");
+                GameManager.Instance.HP++;
+                durabilityT = 0;
+            }
+            else
+            {
+                if (skillCoolWaringCo != null) StopCoroutine(skillCoolWaringCo);
+                skillCoolWaringCo = StartCoroutine(IsSkillCool());
+            }
+            
         }
         durabilityCoolImage.fillAmount = durabilityT/durabilityCool;
     }
@@ -231,10 +265,19 @@ public class Player : Singleton<Player>
     private void Dodge()
     {
         dodgeT += Time.deltaTime;
-        if (Input.GetKeyDown(KeyCode.Space) && dodgeT >= dodgeCool)
+        if (Input.GetKeyDown(KeyCode.Space))
         {
-            dodgeT = 0;
-            StartCoroutine(Dodging());
+            if (dodgeT >= dodgeCool) 
+            {
+                dodgeT = 0;
+                StartCoroutine(Dodging());
+            }
+            else
+            {
+                if (skillCoolWaringCo != null) StopCoroutine(skillCoolWaringCo);
+                skillCoolWaringCo = StartCoroutine(IsSkillCool());
+            }
+
         }
         dodgeCoolImage.fillAmount = dodgeT / dodgeCool;
     }
