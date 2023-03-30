@@ -27,6 +27,7 @@ public class Title : MonoBehaviour
         StartCoroutine(IntroMove());
         Begin(info);
     }
+  
     public void StartGame()
     {
         SceneManager.LoadScene(1);
@@ -63,7 +64,6 @@ public class Title : MonoBehaviour
     public void Begin(Dialogue info)
     {
         sentences.Clear();
-
         foreach (var sentence in info.sentences)
         {
             sentences.Enqueue(sentence);

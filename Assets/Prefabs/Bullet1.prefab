@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 1184195438216624614}
   m_Layer: 0
   m_Name: Bullet1
-  m_TagString: Untagged
+  m_TagString: PlayerBullet
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -129,7 +129,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a0993b83722b040479bceeda0dab3333, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scoreObj: {fileID: 2073233825764350774, guid: c535e75ff3d0ba340bf80420e1e230aa, type: 3}
   hitPc: {fileID: 8355382247360961274, guid: b226d3d729663ea49a09ebd50ebde812, type: 3}
 --- !u!96 &1184195438216624614
 TrailRenderer:
