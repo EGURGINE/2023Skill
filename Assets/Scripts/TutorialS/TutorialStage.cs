@@ -22,6 +22,8 @@ public class TutorialStage : Singleton<TutorialStage>
 
     [SerializeField] private Image fade;
 
+    [SerializeField] private GameObject inputName;
+
     private void Start()
     {
         NextTutorial();
@@ -30,7 +32,7 @@ public class TutorialStage : Singleton<TutorialStage>
     {
         if (Input.GetMouseButtonDown(0))
         {
-            if (tutorialNum == 3 || tutorialNum == 5 || tutorialNum == 7 || tutorialNum == 9) return;
+            if (tutorialNum == 2 || tutorialNum == 4 || tutorialNum == 6 || tutorialNum == 8 || tutorialNum == 10) return;
             tutorialNum++;
             NextTutorial();
         }
@@ -40,20 +42,23 @@ public class TutorialStage : Singleton<TutorialStage>
     {
         switch (tutorialNum)
         {
-            case 3:
+            case 2:
+                inputName.gameObject.SetActive(true);
+                break;
+            case 4:
                 moveCheckObj.SetActive(true);
                 break;
-            case 5:
+            case 6:
                 meteorObj.SetActive(true);
                 break;
-            case 7:
+            case 8:
                 meteorObjs.SetActive(true);
                 break;
-            case 9:
+            case 10:
                 meteorsObjs.SetActive(true);
                 StartCoroutine(EscapeCheck());
                 break;
-            case 10:
+            case 11:
                 StartCoroutine(NextStage());
                 break;
             default:
@@ -64,6 +69,15 @@ public class TutorialStage : Singleton<TutorialStage>
     [SerializeField] private GameObject escapeWnd;
     [SerializeField] private Image escapeGage;
 
+    public void UploadRanking(string txt)
+    {
+        if (txt.Length < 3) return;
+        DataManager.instance.my.score = 0;
+        DataManager.instance.my.name = txt;
+
+        inputName.SetActive(false);
+        Begin();
+    }
     private IEnumerator NextStage()
     {
         fade.gameObject.SetActive(true);

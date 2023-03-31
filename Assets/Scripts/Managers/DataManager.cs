@@ -6,6 +6,7 @@ public class DataManager : MonoBehaviour
 {
     public static DataManager instance = null;
 
+    public Ranker my = new Ranker();
     public int Score;
     public int Stage;
 

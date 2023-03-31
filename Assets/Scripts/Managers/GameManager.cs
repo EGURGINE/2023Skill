@@ -110,10 +110,23 @@ public class GameManager : Singleton<GameManager>
         else score = DataManager.instance.Score;
         StartCoroutine(StageTxt());
         player.isGameStart = isGameStart;
+        StartCoroutine(Timer());
     }
     public void NextStage()
     {
         StartCoroutine(NextStageMove());
+    }
+    public float timer;
+    private IEnumerator Timer()
+    {
+        timer = 0;
+
+        while (isGameStart == true)
+        {
+            yield return null;
+
+            timer+=Time.deltaTime;
+        }
     }
     public IEnumerator NextStageMove()
     {

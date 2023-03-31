@@ -13,10 +13,7 @@ public class Ranker
 
 public class RankingBoard : MonoBehaviour
 {
-
-    [SerializeField] private InputField inputField;
     [SerializeField] private List<Ranker> rankers = new List<Ranker>();
-    [SerializeField] private Ranker my = new Ranker();
     [SerializeField] private GameObject inputNameWnd;
     [SerializeField] private GameObject rankingWnd;
     [SerializeField] private Text[] rankerNames;
@@ -31,22 +28,14 @@ public class RankingBoard : MonoBehaviour
         inputNameWnd.SetActive(true);
         stageNClear.text = $"Stage {GameManager.Instance.stageNum} Clear";
         inputMyScore.text = $"Score : {GameManager.Instance.Score}";
-    }
-
-    public void UploadRanking(string txt)
-    {
-        if (txt.Length < 3) return; 
-        my.score = GameManager.Instance.Score;
-        my.name = txt;
 
         RankingSet();
     }
-
     private void RankingSet()
     {
         Ranker myIn = new Ranker();
-        myIn.score = my.score;
-        myIn.name = my.name;
+        myIn.score = DataManager.instance.my.score;
+        myIn.name = DataManager.instance.my.name;
         rankers.Add(myIn);
         rankers = rankers.OrderByDescending(item => item.score).ToList();
 
@@ -66,8 +55,8 @@ public class RankingBoard : MonoBehaviour
             rankerScores[i].text = $"{rankers[i].score}";
         }
 
-        myName.text = my.name;
-        myScore.text = my.score.ToString();
+        myName.text = DataManager.instance.my.name;
+        myScore.text = DataManager.instance.my.score.ToString();
     }
 
     public void NextStage()

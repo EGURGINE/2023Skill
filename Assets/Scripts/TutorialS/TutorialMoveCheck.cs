@@ -8,7 +8,7 @@ public class TutorialMoveCheck : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            TutorialStage.Instance.tutorialNum = 3;
+            TutorialStage.Instance.tutorialNum = 4;
             TutorialStage.Instance.Begin();
             gameObject.SetActive(false);
         }
