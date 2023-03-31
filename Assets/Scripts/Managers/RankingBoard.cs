@@ -14,22 +14,20 @@ public class Ranker
 public class RankingBoard : MonoBehaviour
 {
     [SerializeField] private List<Ranker> rankers = new List<Ranker>();
-    [SerializeField] private GameObject inputNameWnd;
-    [SerializeField] private GameObject rankingWnd;
     [SerializeField] private Text[] rankerNames;
     [SerializeField] private Text[] rankerScores;
     [SerializeField] private Text myName;
     [SerializeField] private Text myScore;
     [SerializeField] private Text inputMyScore;
     [SerializeField] private Text stageNClear;
-
+    [SerializeField] private Text timer;
     public void OnRankingWnd()
     {
-        inputNameWnd.SetActive(true);
         stageNClear.text = $"Stage {GameManager.Instance.stageNum} Clear";
         inputMyScore.text = $"Score : {GameManager.Instance.Score}";
-
-        RankingSet();
+        print((int)GameManager.Instance.timer);
+        timer.text =  "Timer "+((int)GameManager.Instance.timer).ToString("00:00");
+        //RankingSet();
     }
     private void RankingSet()
     {
@@ -45,10 +43,6 @@ public class RankingBoard : MonoBehaviour
 
     private void RankingBoardSet()
     {
-        inputNameWnd.SetActive(false);
-        rankingWnd.SetActive(true);
-
-
         for (int i = 0; i < rankers.Count; i++)
         {
             rankerNames[i].text = $"{i + 1}. {rankers[i].name}";
@@ -67,10 +61,11 @@ public class RankingBoard : MonoBehaviour
 
     private void RankingSave()
     {
-        for (int i = 0; i < rankers.Count; i++)
-        {
-            PlayerPrefs.SetString($"RankerName{i}", rankers[i].name);
-            PlayerPrefs.SetFloat($"RankerScore{i}", rankers[i].score);
-        }
+        DataManager.instance.my.score = GameManager.Instance.Score;
+        //for (int i = 0; i < rankers.Count; i++)
+        //{
+        //    PlayerPrefs.SetString($"RankerName{i}", rankers[i].name);
+        //    PlayerPrefs.SetFloat($"RankerScore{i}", rankers[i].score);
+        //}
     }
 }

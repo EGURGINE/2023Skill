@@ -96,6 +96,11 @@ public class GameManager : Singleton<GameManager>
     {
         isGameStart = false;
         player.isGameStart = isGameStart;
+        StartCoroutine(ClearWndOn());
+    }
+    private IEnumerator ClearWndOn()
+    {
+        yield return new WaitForSeconds(1.5f);
         ranking.gameObject.SetActive(true);
         ranking.OnRankingWnd();
     }
@@ -106,8 +111,8 @@ public class GameManager : Singleton<GameManager>
         hp = maxHP;
         fuel = maxFuel;
         isGameStart = true;
-        if (stageNum <= 1) score = 0;
-        else score = DataManager.instance.Score;
+        if (stageNum <= 0) Score = 0;
+        else Score = DataManager.instance.my.score;
         StartCoroutine(StageTxt());
         player.isGameStart = isGameStart;
         StartCoroutine(Timer());
@@ -130,7 +135,7 @@ public class GameManager : Singleton<GameManager>
     }
     public IEnumerator NextStageMove()
     {
-        DataManager.instance.Score = score;
+        DataManager.instance.my.score = score;
         stageNum++;
         DataManager.instance.Stage = stageNum;
 
@@ -149,10 +154,10 @@ public class GameManager : Singleton<GameManager>
 
             fadeA.a = Mathf.Lerp(0, 1, t / 1.5f);
             fade.color = fadeA;
-            player.transform.position = Vector3.Lerp(player.transform.position, Vector3.up * 15f, t / 1.5f);
+            player.transform.position = Vector3.Lerp(player.transform.position, Vector3.up * 10f, t / 1.5f);
         }
 
-        SceneManager.LoadScene(2);
+        SceneManager.LoadScene(stageNum + 1);
     }
 
     private IEnumerator StageTxt()
